@@ -21,6 +21,7 @@ func init(){
 
 var token string
 var buffer = make([][]byte, 0)
+var command int
 
 func main() {
 
@@ -34,7 +35,7 @@ func main() {
 
 	// Create a new Discord session using the provided bot token.
 	dg, err := discordgo.New("Bot " + token)
-	if err != nil {
+	if err != nil {	
 		fmt.Println("Error creating Discord session: ", err)
 		return
 	}
@@ -89,7 +90,60 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 				if err != nil {
 					fmt.Println("Error playing sound:", err)
 				}
+				command = 1
+				return
+			}
+		}
+	}
 
+	if strings.HasPrefix(m.Content, "!theri") {
+		// Find the channel that the message came from.
+		c, err := s.State.Channel(m.ChannelID)
+		if err != nil {
+			return
+		}
+
+		// Find the guild for that channel.
+		g, err := s.State.Guild(c.GuildID)
+		if err != nil {
+			return
+		}
+
+		// Look for the message sender in that guild's current voice states.
+		for _, vs := range g.VoiceStates {
+			if vs.UserID == m.Author.ID {
+				err = playSound(s, g.ID, vs.ChannelID)
+				if err != nil {
+					fmt.Println("Error playing sound:", err)
+				}
+				command = 2
+				return
+			}
+		}
+	}
+
+	if strings.HasPrefix(m.Content, "!aiyo") {
+
+		// Find the channel that the message came from.
+		c, err := s.State.Channel(m.ChannelID)
+		if err != nil {
+			return
+		}
+
+		// Find the guild for that channel.
+		g, err := s.State.Guild(c.GuildID)
+		if err != nil {
+			return
+		}
+
+		// Look for the message sender in that guild's current voice states.
+		for _, vs := range g.VoiceStates {
+			if vs.UserID == m.Author.ID {
+				err = playSound(s, g.ID, vs.ChannelID)
+				if err != nil {
+					fmt.Println("Error playing sound:", err)
+				}
+				command = 3
 				return
 			}
 		}
@@ -113,7 +167,15 @@ func guildCreate(s *discordgo.Session, event *discordgo.GuildCreate) {
 // loadSound attempts to load an encoded sound file from disk.
 func loadSound() error {
 
-	file, err := os.Open("emodmg.dca")
+	var filename string
+
+	switch command  {
+	case 1 : filename = "emodmg.dca"
+	case 2 : filename = "theri.dca"
+	case 3 : filename = "aiyayo.dca"
+	}
+
+	file, err := os.Open(filename)
 	if err != nil {
 		fmt.Println("Error opening dca file :", err)
 		return err
