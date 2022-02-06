@@ -20,6 +20,7 @@ func init(){
 
 var token string
 var command int
+var playing bool = false
 
 func main() {
 
@@ -64,7 +65,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		return
 	}
 
-	fmt.Println(m.Content)
+	fmt.Println(m.Content)	
 
 	if strings.HasPrefix(m.Content, "!emo") {
 
@@ -84,7 +85,11 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		for _, vs := range g.VoiceStates {
 			if vs.UserID == m.Author.ID {
 				command = 1
-				err = playSound(s, g.ID, vs.ChannelID)
+				if playing == false {
+					playing = true
+					err = playSound(s, g.ID, vs.ChannelID)
+				}					
+				playing = false
 				if err != nil {
 					fmt.Println("Error playing sound:", err)
 				}
@@ -110,7 +115,11 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		for _, vs := range g.VoiceStates {
 			if vs.UserID == m.Author.ID {
 				command = 2
-				err = playSound(s, g.ID, vs.ChannelID)
+				if playing == false {
+					playing = true
+					err = playSound(s, g.ID, vs.ChannelID)
+				}					
+				playing = false
 				if err != nil {
 					fmt.Println("Error playing sound:", err)
 				}
@@ -137,7 +146,11 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		for _, vs := range g.VoiceStates {
 			if vs.UserID == m.Author.ID {
 				command = 3
-				err = playSound(s, g.ID, vs.ChannelID)
+				if playing == false {
+					playing = true
+					err = playSound(s, g.ID, vs.ChannelID)
+				}					
+				playing = false
 				if err != nil {
 					fmt.Println("Error playing sound:", err)
 				}
