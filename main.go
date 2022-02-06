@@ -66,6 +66,8 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		return
 	}
 
+	fmt.Println(m.Content)
+
 	if strings.HasPrefix(m.Content, "!emo") {
 
 		// Find the channel that the message came from.
@@ -217,6 +219,9 @@ func loadSound() error {
 func playSound(s *discordgo.Session, guildID, channelID string) (err error) {
 
 	err2 := loadSound()
+
+	fmt.Println(command)
+
 	if err2 != nil {
 		return err
 	}
@@ -237,6 +242,8 @@ func playSound(s *discordgo.Session, guildID, channelID string) (err error) {
 	for _, buff := range buffer {
 		vc.OpusSend <- buff
 	}
+
+	buffer = nil
 
 	// Stop speaking
 	vc.Speaking(false)
