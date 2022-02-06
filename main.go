@@ -1,4 +1,4 @@
-package emobot
+package main
 
 import (
 	"encoding/binary"
@@ -29,10 +29,7 @@ func main() {
 		fmt.Println("Pass Token as Cmd Param")
 		return
 	}
-
-	// Load the sound file.
-	err := loadSound()
-
+	
 	// Create a new Discord session using the provided bot token.
 	dg, err := discordgo.New("Bot " + token)
 	if err != nil {	
@@ -86,11 +83,11 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		// Look for the message sender in that guild's current voice states.
 		for _, vs := range g.VoiceStates {
 			if vs.UserID == m.Author.ID {
+				command = 1
 				err = playSound(s, g.ID, vs.ChannelID)
 				if err != nil {
 					fmt.Println("Error playing sound:", err)
 				}
-				command = 1
 				return
 			}
 		}
@@ -112,11 +109,11 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		// Look for the message sender in that guild's current voice states.
 		for _, vs := range g.VoiceStates {
 			if vs.UserID == m.Author.ID {
+				command = 2
 				err = playSound(s, g.ID, vs.ChannelID)
 				if err != nil {
 					fmt.Println("Error playing sound:", err)
 				}
-				command = 2
 				return
 			}
 		}
@@ -139,11 +136,11 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		// Look for the message sender in that guild's current voice states.
 		for _, vs := range g.VoiceStates {
 			if vs.UserID == m.Author.ID {
+				command = 3
 				err = playSound(s, g.ID, vs.ChannelID)
 				if err != nil {
 					fmt.Println("Error playing sound:", err)
 				}
-				command = 3
 				return
 			}
 		}
@@ -174,7 +171,7 @@ func loadSound() error {
 	case 2 : filename = "theri.dca"
 	case 3 : filename = "aiyayo.dca"
 	}
-
+	
 	file, err := os.Open(filename)
 	if err != nil {
 		fmt.Println("Error opening dca file :", err)
@@ -218,6 +215,8 @@ func loadSound() error {
 
 // playSound plays the current buffer to the provided channel.
 func playSound(s *discordgo.Session, guildID, channelID string) (err error) {
+
+	err := loadSound()
 
 	// Join the provided voice channel.
 	vc, err := s.ChannelVoiceJoin(guildID, channelID, false, true)
