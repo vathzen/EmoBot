@@ -14,13 +14,20 @@ import (
 	"github.com/bwmarrin/discordgo"
 )
 
+func init(){
+	flag.StringVar(&token,"t", "", "Bot Token")
+	flag.Parse()
+}
 
 var token string
 var buffer = make([][]byte, 0)
 
 func main() {
 
-	token = 'OTM5Nzg1MDc5MDc5NzMxMjIw.Yf95Dw.yqa3k9-bijNpaYlxk_VoxcYzl4w'
+	if token == ""{
+		fmt.Println("Pass Token as Cmd Param")
+		return
+	}
 
 	// Load the sound file.
 	err := loadSound()
