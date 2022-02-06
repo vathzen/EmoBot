@@ -171,7 +171,7 @@ func loadSound() error {
 	case 2 : filename = "theri.dca"
 	case 3 : filename = "aiyayo.dca"
 	}
-	
+
 	file, err := os.Open(filename)
 	if err != nil {
 		fmt.Println("Error opening dca file :", err)
@@ -216,7 +216,10 @@ func loadSound() error {
 // playSound plays the current buffer to the provided channel.
 func playSound(s *discordgo.Session, guildID, channelID string) (err error) {
 
-	err := loadSound()
+	err2 := loadSound()
+	if err2 != nil {
+		return err
+	}
 
 	// Join the provided voice channel.
 	vc, err := s.ChannelVoiceJoin(guildID, channelID, false, true)
