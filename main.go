@@ -9,7 +9,6 @@ import (
 	"os/signal"
 	"strings"
 	"syscall"
-	"time"
 
 	"github.com/bwmarrin/discordgo"
 )
@@ -20,7 +19,6 @@ func init(){
 }
 
 var token string
-var buffer = make([][]byte, 0)
 var command int
 
 func main() {
@@ -149,7 +147,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	}
 }
 
-func guildCreate(s *discordgo.Session, event *discordgo.GuildCreate) {
+func guildCreate(s *discordgo.Session, event *discordgo.GuildCreate) () {
 
 	if event.Guild.Unavailable {
 		return
@@ -164,9 +162,10 @@ func guildCreate(s *discordgo.Session, event *discordgo.GuildCreate) {
 }
 
 // loadSound attempts to load an encoded sound file from disk.
-func loadSound() error {
+func loadSound() (buffer2 [][]uint8, err error) {
 
 	var filename string
+	var buffer = make([][]byte, 0)
 
 	switch command  {
 	case 1 : filename = "emodmg.dca"
@@ -177,7 +176,7 @@ func loadSound() error {
 	file, err := os.Open(filename)
 	if err != nil {
 		fmt.Println("Error opening dca file :", err)
-		return err
+		return nil,err
 	}
 
 	var opuslen int16
@@ -190,14 +189,14 @@ func loadSound() error {
 		if err == io.EOF || err == io.ErrUnexpectedEOF {
 			err := file.Close()
 			if err != nil {
-				return err
+				return nil,err
 			}
-			return nil
+			return buffer,nil
 		}
 
 		if err != nil {
 			fmt.Println("Error reading from dca file :", err)
-			return err
+			return nil,err
 		}
 
 		// Read encoded pcm from dca file.
@@ -207,9 +206,8 @@ func loadSound() error {
 		// Should not be any end of file errors
 		if err != nil {
 			fmt.Println("Error reading from dca file :", err)
-			return err
+			return nil,err
 		}
-
 		// Append encoded pcm data to the buffer.
 		buffer = append(buffer, InBuf)
 	}
@@ -218,7 +216,7 @@ func loadSound() error {
 // playSound plays the current buffer to the provided channel.
 func playSound(s *discordgo.Session, guildID, channelID string) (err error) {
 
-	err2 := loadSound()
+	buffer,err2 := loadSound()
 
 	fmt.Println(command)
 
@@ -232,9 +230,6 @@ func playSound(s *discordgo.Session, guildID, channelID string) (err error) {
 		return err
 	}
 
-	// Sleep for a specified amount of time before playing the sound
-	time.Sleep(250 * time.Millisecond)
-
 	// Start speaking.
 	vc.Speaking(true)
 
@@ -247,9 +242,6 @@ func playSound(s *discordgo.Session, guildID, channelID string) (err error) {
 
 	// Stop speaking
 	vc.Speaking(false)
-
-	// Sleep for a specificed amount of time before ending.
-	time.Sleep(250 * time.Millisecond)
 
 	// Disconnect from the provided voice channel.
 	vc.Disconnect()
