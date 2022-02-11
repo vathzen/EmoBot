@@ -20,7 +20,7 @@ func init(){
 
 var token string
 var command int
-var playing bool = false
+var isPlaying bool = false
 
 func main() {
 
@@ -64,7 +64,6 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	if m.Author.ID == s.State.User.ID {
 		return
 	}
-
 	fmt.Println(m.Content)	
 
 	if strings.HasPrefix(m.Content, "!emo") {
@@ -84,75 +83,31 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		// Look for the message sender in that guild's current voice states.
 		for _, vs := range g.VoiceStates {
 			if vs.UserID == m.Author.ID {
-				command = 1
-				if playing == false {
-					playing = true
+
+				voiceLine := strings.Split(m.Content, " ")
+				switch voiceLine[1]{
+				case "emo":
+					command = 1
+				case "theri":
+					command = 2
+				case "aiyo":
+					command = 3
+				case "iladi":
+					command = 4
+				case "wtf":
+					command = 5
+				default:
+					return
+				} 
+
+				if isPlaying == false {
+					isPlaying = true
 					err = playSound(s, g.ID, vs.ChannelID)
 				}					
-				playing = false
+				isPlaying = false
+
 				if err != nil {
-					fmt.Println("Error playing sound:", err)
-				}
-				return
-			}
-		}
-	}
-
-	if strings.HasPrefix(m.Content, "!theri") {
-		// Find the channel that the message came from.
-		c, err := s.State.Channel(m.ChannelID)
-		if err != nil {
-			return
-		}
-
-		// Find the guild for that channel.
-		g, err := s.State.Guild(c.GuildID)
-		if err != nil {
-			return
-		}
-
-		// Look for the message sender in that guild's current voice states.
-		for _, vs := range g.VoiceStates {
-			if vs.UserID == m.Author.ID {
-				command = 2
-				if playing == false {
-					playing = true
-					err = playSound(s, g.ID, vs.ChannelID)
-				}					
-				playing = false
-				if err != nil {
-					fmt.Println("Error playing sound:", err)
-				}
-				return
-			}
-		}
-	}
-
-	if strings.HasPrefix(m.Content, "!aiyo") {
-
-		// Find the channel that the message came from.
-		c, err := s.State.Channel(m.ChannelID)
-		if err != nil {
-			return
-		}
-
-		// Find the guild for that channel.
-		g, err := s.State.Guild(c.GuildID)
-		if err != nil {
-			return
-		}
-
-		// Look for the message sender in that guild's current voice states.
-		for _, vs := range g.VoiceStates {
-			if vs.UserID == m.Author.ID {
-				command = 3
-				if playing == false {
-					playing = true
-					err = playSound(s, g.ID, vs.ChannelID)
-				}					
-				playing = false
-				if err != nil {
-					fmt.Println("Error playing sound:", err)
+					fmt.Println("Error Playing sound:", err)
 				}
 				return
 			}
@@ -184,6 +139,8 @@ func loadSound() (buffer2 [][]uint8, err error) {
 	case 1 : filename = "emodmg.dca"
 	case 2 : filename = "theri.dca"
 	case 3 : filename = "aiyayo.dca"
+	case 4 : filename = "siruthai.dca"
+	case 5 : filename = "wtf.dca"
 	}
 
 	file, err := os.Open(filename)
