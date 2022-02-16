@@ -85,6 +85,9 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 			if vs.UserID == m.Author.ID {
 
 				voiceLine := strings.Split(m.Content, " ")
+				if len(voiceLine) <=1 {
+					return
+				}
 				switch voiceLine[1]{
 				case "emo":
 					command = 1
