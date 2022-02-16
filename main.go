@@ -98,6 +98,8 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 					command = 5
 				case "davara":
 					command = 6
+				case "daedalus":
+					command = 7
 				default:
 					return
 				} 
@@ -144,6 +146,7 @@ func loadSound() (buffer2 [][]uint8, err error) {
 	case 4 : filename = "siruthai.dca"
 	case 5 : filename = "wtf.dca"
 	case 6 : filename = "davara.dca"
+	case 7 : filename = "daedalus.dca"
 	}
 
 	file, err := os.Open(filename)
