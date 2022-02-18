@@ -25,7 +25,7 @@ var isPlaying bool = false
 func main() {
 
 	if token == ""{
-		fmt.Println("Pass Token as Cmd Param")
+		fmt.Println("Pass Token as Param")
 		return
 	}
 	
@@ -63,8 +63,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 	if m.Author.ID == s.State.User.ID {
 		return
-	}
-	fmt.Println(m.Content)	
+	}	
 
 	if strings.HasPrefix(m.Content, "!emo") {
 
@@ -83,7 +82,6 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		// Look for the message sender in that guild's current voice states.
 		for _, vs := range g.VoiceStates {
 			if vs.UserID == m.Author.ID {
-
 				voiceLine := strings.Split(m.Content, " ")
 				if len(voiceLine) <=1 {
 					return
@@ -109,6 +107,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 				if isPlaying == false {
 					isPlaying = true
+					fmt.Printf("%s: %s -> %s",g.Name,m.Author,voiceLine[1])
 					err = playSound(s, g.ID, vs.ChannelID)
 				}					
 				isPlaying = false
@@ -149,7 +148,7 @@ func loadSound() (buffer2 [][]uint8, err error) {
 	case 4 : filename = "siruthai.dca"
 	case 5 : filename = "wtf.dca"
 	case 6 : filename = "davara.dca"
-	case 7 : filename = "daedalus.dca"
+	case 7 : filename = "daedalus3.dca"
 	}
 
 	file, err := os.Open(filename)
@@ -196,8 +195,6 @@ func loadSound() (buffer2 [][]uint8, err error) {
 func playSound(s *discordgo.Session, guildID, channelID string) (err error) {
 
 	buffer,err2 := loadSound()
-
-	fmt.Println(command)
 
 	if err2 != nil {
 		return err
