@@ -140,13 +140,17 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 					command = 51
 				case "die":
 					command = 52
+				case "bock":
+					command = 54
+				case "sad":
+					command = 53
 				default:
 					return
 				}
 
 				if isPlaying == false {
 					isPlaying = true
-					fmt.Printf("%s: %s -> %s", g.Name, m.Author, voiceLine[1])
+					fmt.Printf("%s: %s -> %s\n", g.Name, m.Author, voiceLine[1])
 					err = playSound(s, g.ID, vs.ChannelID)
 				}
 				isPlaying = false
@@ -196,10 +200,15 @@ func loadSound() (buffer2 [][]uint8, err error) {
 		filename = "davara.dca"
 	case 7:
 		filename = "daedalus3.dca"
+
 	case 51:
 		filename = "ratata.dca"
 	case 52:
 		filename = "imightdie.dca"
+	case 53:
+		filename = "sad.dca"
+	case 54:
+		filename = "bock.dca"
 	}
 
 	file, err := os.Open(filename)
