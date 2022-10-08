@@ -100,6 +100,8 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 					command = 6
 				case "daedalus":
 					command = 7
+				case "helpme":
+					command = 8
 				default:
 					return
 				}
@@ -200,6 +202,8 @@ func loadSound() (buffer2 [][]uint8, err error) {
 		filename = "davara.dca"
 	case 7:
 		filename = "daedalus3.dca"
+	case 8:
+		filename = "helpme.dca"
 
 	case 51:
 		filename = "ratata.dca"
