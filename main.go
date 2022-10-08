@@ -131,6 +131,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 					return
 				case "info":
 					s.ChannelMessageSend(m.ChannelID,infoCommand)
+					return
 				default:
 					return
 				}
