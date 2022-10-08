@@ -22,6 +22,30 @@ var token string
 var command int
 var isPlaying bool = false
 
+const helpCommand = `
+!emo commands
+-------------
+emo : eMoTiOnAL dAmAgE
+theri : Yaara Vena Iruklam Sir
+aiyo : AIYAYO
+iladi: Ana Na Apdi Iladi
+wtf: KTV WTF
+davara: Davara Da Dei
+daedalus: Buy Daedalus
+helpme: HELP ME
+
+!d2 commands
+------------
+ratata: You're dead!
+die: If I go in I might die x3
+bock: Bock Bock Bock!
+sad: I admit nothing..
+help: This`
+
+const infoCommand = `
+I'm the intellectual brainchild of  Frooster. My code can be found at https://github.com/vathzen/EmoBot.
+For any issues and recommendations please contact my author at https://vathzen.in/discord; though he will probably say Vaaila Vechuko`
+
 func main() {
 
 	if token == "" {
@@ -102,6 +126,11 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 					command = 7
 				case "helpme":
 					command = 8
+				case "help":
+					s.ChannelMessageSend(m.ChannelID,helpCommand)
+					return
+				case "info":
+					s.ChannelMessageSend(m.ChannelID,infoCommand)
 				default:
 					return
 				}
