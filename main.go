@@ -189,30 +189,30 @@ func loadSound() (buffer2 [][]uint8, err error) {
 
 	switch command {
 	case 1:
-		filename = "emodmg.dca"
+		filename = "./dca/emodmg.dca"
 	case 2:
-		filename = "theri.dca"
+		filename = "./dca/theri.dca"
 	case 3:
-		filename = "aiyayo.dca"
+		filename = "./dca/aiyayo.dca"
 	case 4:
-		filename = "siruthai.dca"
+		filename = "./dca/siruthai.dca"
 	case 5:
-		filename = "wtf.dca"
+		filename = "./dca/wtf.dca"
 	case 6:
-		filename = "davara.dca"
+		filename = "./dca/davara.dca"
 	case 7:
-		filename = "daedalus3.dca"
+		filename = "./dca/daedalus3.dca"
 	case 8:
-		filename = "helpme.dca"
+		filename = "./dca/helpme.dca"
 
 	case 51:
-		filename = "ratata.dca"
+		filename = "./dca/ratata.dca"
 	case 52:
-		filename = "imightdie.dca"
+		filename = "./dca/imightdie.dca"
 	case 53:
-		filename = "sad.dca"
+		filename = "./dca/sad.dca"
 	case 54:
-		filename = "bock.dca"
+		filename = "./dca/bock.dca"
 	}
 
 	file, err := os.Open(filename)
