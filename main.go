@@ -33,6 +33,7 @@ wtf: KTV WTF
 davara: Davara Da Dei
 daedalus: Buy Daedalus
 helpme: HELP ME
+jr: Jayarahul lol
 
 !d2 commands
 ------------
@@ -126,6 +127,8 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 					command = 7
 				case "helpme":
 					command = 8
+				case "jr":
+					command = 9
 				case "help":
 					s.ChannelMessageSend(m.ChannelID,helpCommand)
 					return
@@ -234,6 +237,8 @@ func loadSound() (buffer2 [][]uint8, err error) {
 		filename = "./dca/daedalus3.dca"
 	case 8:
 		filename = "./dca/helpme.dca"
+	case 9:
+		filename = "./dca/jrm.dca"
 
 	case 51:
 		filename = "./dca/ratata.dca"
