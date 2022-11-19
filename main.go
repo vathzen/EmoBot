@@ -134,6 +134,8 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 					command = 10
 				case "varala":
 					command = 11
+				case "yes":
+					command = 12
 				case "help":
 					s.ChannelMessageSend(m.ChannelID,helpCommand)
 					return
@@ -248,6 +250,8 @@ func loadSound() (buffer2 [][]uint8, err error) {
 		filename = "./dca/capsy.dca"
 	case 11:
 		filename = "./dca/vak2.dca"
+	case 12:
+		filename = "./dca/vichu.dca"
 
 	case 51:
 		filename = "./dca/ratata.dca"
