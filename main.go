@@ -35,6 +35,13 @@ daedalus: Buy Daedalus
 helpme: HELP ME
 jr: Jayarahul lol
 aadatha: Capsy lol
+baski: Thodu lmao
+damage: thats a looot of damage
+ktv: ktv ktv ketta ktv
+mairu: bad wordshh
+nallave: ningallem nallave iruka matinga da T_T
+noob: Rogue's killer line
+worst: Worst and end the game xD 
 
 !d2 commands
 ------------
@@ -136,6 +143,20 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 					command = 11
 				case "yes":
 					command = 12
+				case "baski":
+					command = 13
+				case "damage":
+					command = 14
+				case "ktv":
+					command = 15
+				case "mairu":
+					command = 16
+				case "nallave":
+					command = 17
+				case "noob":
+					command = 18
+				case "worst":
+					command = 19
 				case "help":
 					s.ChannelMessageSend(m.ChannelID,helpCommand)
 					return
@@ -148,7 +169,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 				if isPlaying == false {
 					isPlaying = true
-					fmt.Printf("%s: %s -> %s", g.Name, m.Author, voiceLine[1])
+					fmt.Printf("%s: %s -> %s\n", g.Name, m.Author, voiceLine[1])
 					err = playSound(s, g.ID, vs.ChannelID)
 				}
 				isPlaying = false
@@ -252,6 +273,20 @@ func loadSound() (buffer2 [][]uint8, err error) {
 		filename = "./dca/vak2.dca"
 	case 12:
 		filename = "./dca/vichu.dca"
+	case 13:
+		filename = "./dca/baski-thodu.dca"
+	case 14:
+		filename = "./dca/damage.dca"
+	case 15:
+		filename = "./dca/ktv2.dca"
+	case 16:
+		filename = "./dca/mairu.dca"
+	case 17:
+		filename = "./dca/nallave.dca"
+	case 18:
+		filename = "./dca/noob.dca"
+	case 19:
+		filename = "./dca/worst.dca"
 
 	case 51:
 		filename = "./dca/ratata.dca"
@@ -315,7 +350,11 @@ func playSound(s *discordgo.Session, guildID, channelID string) (err error) {
 	// Join the provided voice channel.
 	vc, err := s.ChannelVoiceJoin(guildID, channelID, false, true)
 	if err != nil {
-		return err
+		if _, ok := s.VoiceConnections[guildID]; ok {
+			vc = s.VoiceConnections[guildID]
+		} else {
+			return nil
+		}
 	}
 
 	// Start speaking.
