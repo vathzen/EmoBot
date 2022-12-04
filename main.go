@@ -11,7 +11,6 @@ import (
 	"os/signal"
 	"strings"
 	"syscall"
-	"time"
 
 	"github.com/bwmarrin/discordgo"
 )
@@ -22,13 +21,11 @@ func init() {
 }
 
 var token string
-var command int
 var fileName string
 var isPlaying bool = false
 
 type CommandData struct {
-	Command  int
-	FileName string
+	fileName string
 }
 
 const helpCommand = `
@@ -117,8 +114,6 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		return
 	}
 
-	currentTime := time.Now()
-
 	if strings.HasPrefix(m.Content, "!emo") {
 
 		// Find the channel that the message came from.
@@ -137,28 +132,23 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		for _, vs := range g.VoiceStates {
 			if vs.UserID == m.Author.ID {
 				voiceLine := strings.Split(m.Content, " ")
-
 				if len(voiceLine) <= 1 {
 					return
 				}
-
+				fmt.Println(payload)
 				if voiceLine[1] == "help" {
 					s.ChannelMessageSend(m.ChannelID, helpCommand)
 				} else if voiceLine[1] == "info" {
 					s.ChannelMessageSend(m.ChannelID, infoCommand)
 				} else {
-					fileName = payload[voiceLine[1]].FileName
-					if fileName == "" {
-						fmt.Printf("%s %s: %s -> %s Not Found\n", currentTime.Format("2006.01.02 15:04:05"), g.Name, m.Author, voiceLine[1])
-						s.MessageReactionAdd(c.ID, m.ID, "\U00002639")
-						return
-					}
+					fileName = payload[voiceLine[1]].fileName
+
+					fmt.Print(payload[voiceLine[1]].fileName)
 				}
 
 				if isPlaying == false {
 					isPlaying = true
-					fmt.Printf("%s %s: %s -> %s\n", currentTime.Format("2006.01.02 15:04:05"), g.Name, m.Author, voiceLine[1])
-					s.MessageReactionAdd(c.ID, m.ID, "\U0001F602")
+					fmt.Printf("%s: %s -> %s\n", g.Name, m.Author, voiceLine[1])
 					err = playSound(s, g.ID, vs.ChannelID)
 				}
 				isPlaying = false
@@ -188,7 +178,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 					return
 				}
 
-				fileName = payload[voiceLine[1]].FileName
+				fileName = payload[voiceLine[1]].fileName
 
 				if isPlaying == false {
 					isPlaying = true
@@ -224,9 +214,12 @@ func guildCreate(s *discordgo.Session, event *discordgo.GuildCreate) {
 // loadSound attempts to load an encoded sound file from disk.
 func loadSound() (buffer2 [][]uint8, err error) {
 
+	var filename string
 	var buffer = make([][]byte, 0)
 
-	file, err := os.Open(fileName)
+	fmt.Print("asdasdasdasdasdas" + fileName)
+
+	file, err := os.Open(filename)
 	if err != nil {
 		fmt.Println("Error opening dca file :", err)
 		return nil, err

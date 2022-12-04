@@ -1,94 +1,71 @@
 {
     "emo": {
-        "command": 1,
         "filename": "./dca/emodmg.dca"
     },
     "theri": {
-        "command": 2,
         "fileName": "./dca/theri.dca"
     },
     "aiyo": {
-        "command": 3,
         "fileName": "./dca/aiyayo.dca"
     },
     "iladi": {
-        "command": 4,
         "fileName": "./dca/siruthai.dca"
     },
     "wtf": {
-        "command": 5,
         "fileName": "./dca/wtf.dca"
     },
     "davara": {
-        "command": 6,
         "fileName": "./dca/davara.dca"
     },
     "daedalus": {
-        "command": 7,
         "fileName": "./dca/daedalus3.dca"
     },
     "helpme": {
-        "command": 8,
         "fileName": "./dca/helpme.dca"
     },
     "jr": {
-        "command": 9,
         "fileName": "./dca/jrm.dca"
     },
     "aadatha": {
-        "command": 10,
         "fileName": "./dca/capsy.dca"
     },
     "varala": {
-        "command": 11,
         "fileName": "./dca/vak2.dca"
     },
     "yes": {
-        "command": 12,
         "fileName": "./dca/vichu.dca"
     },
     "baski": {
-        "command": 13,
         "fileName": "./dca/baski-thodu.dca"
     },
     "damage": {
-        "command": 14,
         "fileName": "./dca/damage.dca"
     },
     "ktv": {
-        "command": 15,
         "fileName": "./dca/ktv2.dca"
     },
     "mairu": {
-        "command": 16,
         "fileName": "./dca/mairu.dca"
     },
     "nallave": {
-        "command": 17,
         "fileName": "./dca/nallave.dca"
     },
     "noob": {
-        "command": 18,
         "fileName": "./dca/noob.dca"
     },
     "worst": {
-        "command": 19,
         "fileName": "./dca/worst.dca"
     },
     "ratata": {
-        "command": 51,
         "fileName": "./dca/ratata.dca"
     },
     "die": {
-        "command": 52,
         "fileName": "./dca/imightdie.dca"
     },
     "sad": {
-        "command": 53,
         "fileName": "./dca/sad.dca"
     },
     "bock": {
-        "command": 54,
         "fileName": "./dca/bock.dca"
     }
 }
