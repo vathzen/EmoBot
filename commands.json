@@ -1,0 +1,71 @@
+{
+    "emo": {
+        "filename": "./dca/emodmg.dca"
+    },
+    "theri": {
+        "fileName": "./dca/theri.dca"
+    },
+    "aiyo": {
+        "fileName": "./dca/aiyayo.dca"
+    },
+    "iladi": {
+        "fileName": "./dca/siruthai.dca"
+    },
+    "wtf": {
+        "fileName": "./dca/wtf.dca"
+    },
+    "davara": {
+        "fileName": "./dca/davara.dca"
+    },
+    "daedalus": {
+        "fileName": "./dca/daedalus3.dca"
+    },
+    "helpme": {
+        "fileName": "./dca/helpme.dca"
+    },
+    "jr": {
+        "fileName": "./dca/jrm.dca"
+    },
+    "aadatha": {
+        "fileName": "./dca/capsy.dca"
+    },
+    "varala": {
+        "fileName": "./dca/vak2.dca"
+    },
+    "yes": {
+        "fileName": "./dca/vichu.dca"
+    },
+    "baski": {
+        "fileName": "./dca/baski-thodu.dca"
+    },
+    "damage": {
+        "fileName": "./dca/damage.dca"
+    },
+    "ktv": {
+        "fileName": "./dca/ktv2.dca"
+    },
+    "mairu": {
+        "fileName": "./dca/mairu.dca"
+    },
+    "nallave": {
+        "fileName": "./dca/nallave.dca"
+    },
+    "noob": {
+        "fileName": "./dca/noob.dca"
+    },
+    "worst": {
+        "fileName": "./dca/worst.dca"
+    },
+    "ratata": {
+        "fileName": "./dca/ratata.dca"
+    },
+    "die": {
+        "fileName": "./dca/imightdie.dca"
+    },
+    "sad": {
+        "fileName": "./dca/sad.dca"
+    },
+    "bock": {
+        "fileName": "./dca/bock.dca"
+    }
+}

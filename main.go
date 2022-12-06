@@ -2,13 +2,16 @@ package main
 
 import (
 	"encoding/binary"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"os"
 	"os/signal"
 	"strings"
 	"syscall"
+	"time"
 
 	"github.com/bwmarrin/discordgo"
 )
@@ -19,8 +22,12 @@ func init() {
 }
 
 var token string
-var command int
+var fileName string
 var isPlaying bool = false
+
+type CommandData struct {
+	FileName string
+}
 
 const helpCommand = `
 !emo commands
@@ -93,9 +100,22 @@ func ready(s *discordgo.Session, event *discordgo.Ready) {
 
 func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 
+	//Get json data for the commands
+	fileContent, err := ioutil.ReadFile("./commands.json")
+	if err != nil {
+		return
+	}
+	var payload map[string]CommandData
+	err = json.Unmarshal(fileContent, &payload)
+	if err != nil {
+		return
+	}
+
 	if m.Author.ID == s.State.User.ID {
 		return
 	}
+
+	currentTime := time.Now()
 
 	if strings.HasPrefix(m.Content, "!emo") {
 
@@ -115,61 +135,28 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		for _, vs := range g.VoiceStates {
 			if vs.UserID == m.Author.ID {
 				voiceLine := strings.Split(m.Content, " ")
+
 				if len(voiceLine) <= 1 {
 					return
 				}
-				switch voiceLine[1] {
-				case "emo":
-					command = 1
-				case "theri":
-					command = 2
-				case "aiyo":
-					command = 3
-				case "iladi":
-					command = 4
-				case "wtf":
-					command = 5
-				case "davara":
-					command = 6
-				case "daedalus":
-					command = 7
-				case "helpme":
-					command = 8
-				case "jr":
-					command = 9
-				case "aadatha":
-					command = 10
-				case "varala":
-					command = 11
-				case "yes":
-					command = 12
-				case "baski":
-					command = 13
-				case "damage":
-					command = 14
-				case "ktv":
-					command = 15
-				case "mairu":
-					command = 16
-				case "nallave":
-					command = 17
-				case "noob":
-					command = 18
-				case "worst":
-					command = 19
-				case "help":
-					s.ChannelMessageSend(m.ChannelID,helpCommand)
-					return
-				case "info":
-					s.ChannelMessageSend(m.ChannelID,infoCommand)
-					return
-				default:
-					return
+
+				if voiceLine[1] == "help" {
+					s.ChannelMessageSend(m.ChannelID, helpCommand)
+				} else if voiceLine[1] == "info" {
+					s.ChannelMessageSend(m.ChannelID, infoCommand)
+				} else {
+					fileName = payload[voiceLine[1]].FileName
+					if fileName == "" {
+						fmt.Printf("%s %s: %s -> %s Not Found\n", currentTime.Format("2006.01.02 15:04:05"), g.Name, m.Author, voiceLine[1])
+						s.MessageReactionAdd(c.ID, m.ID, "\U00002639")
+						return
+					}
 				}
 
 				if isPlaying == false {
 					isPlaying = true
-					fmt.Printf("%s: %s -> %s\n", g.Name, m.Author, voiceLine[1])
+					fmt.Printf("%s %s: %s -> %s\n", currentTime.Format("2006.01.02 15:04:05"), g.Name, m.Author, voiceLine[1])
+					s.MessageReactionAdd(c.ID, m.ID, "\U0001F602")
 					err = playSound(s, g.ID, vs.ChannelID)
 				}
 				isPlaying = false
@@ -198,18 +185,8 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 				if len(voiceLine) <= 1 {
 					return
 				}
-				switch voiceLine[1] {
-				case "ratata":
-					command = 51
-				case "die":
-					command = 52
-				case "bock":
-					command = 54
-				case "sad":
-					command = 53
-				default:
-					return
-				}
+
+				fileName = payload[voiceLine[1]].FileName
 
 				if isPlaying == false {
 					isPlaying = true
@@ -245,60 +222,9 @@ func guildCreate(s *discordgo.Session, event *discordgo.GuildCreate) {
 // loadSound attempts to load an encoded sound file from disk.
 func loadSound() (buffer2 [][]uint8, err error) {
 
-	var filename string
 	var buffer = make([][]byte, 0)
 
-	switch command {
-	case 1:
-		filename = "./dca/emodmg.dca"
-	case 2:
-		filename = "./dca/theri.dca"
-	case 3:
-		filename = "./dca/aiyayo.dca"
-	case 4:
-		filename = "./dca/siruthai.dca"
-	case 5:
-		filename = "./dca/wtf.dca"
-	case 6:
-		filename = "./dca/davara.dca"
-	case 7:
-		filename = "./dca/daedalus3.dca"
-	case 8:
-		filename = "./dca/helpme.dca"
-	case 9:
-		filename = "./dca/jrm.dca"
-	case 10:
-		filename = "./dca/capsy.dca"
-	case 11:
-		filename = "./dca/vak2.dca"
-	case 12:
-		filename = "./dca/vichu.dca"
-	case 13:
-		filename = "./dca/baski-thodu.dca"
-	case 14:
-		filename = "./dca/damage.dca"
-	case 15:
-		filename = "./dca/ktv2.dca"
-	case 16:
-		filename = "./dca/mairu.dca"
-	case 17:
-		filename = "./dca/nallave.dca"
-	case 18:
-		filename = "./dca/noob.dca"
-	case 19:
-		filename = "./dca/worst.dca"
-
-	case 51:
-		filename = "./dca/ratata.dca"
-	case 52:
-		filename = "./dca/imightdie.dca"
-	case 53:
-		filename = "./dca/sad.dca"
-	case 54:
-		filename = "./dca/bock.dca"
-	}
-
-	file, err := os.Open(filename)
+	file, err := os.Open(fileName)
 	if err != nil {
 		fmt.Println("Error opening dca file :", err)
 		return nil, err
