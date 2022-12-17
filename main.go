@@ -78,6 +78,7 @@ func main() {
 	dg.AddHandler(ready)
 	dg.AddHandler(messageCreate)
 	dg.AddHandler(guildCreate)
+	dg.AddHandler(onKTVJoin)
 
 	dg.Identify.Intents = discordgo.IntentsGuilds | discordgo.IntentsGuildMessages | discordgo.IntentsGuildVoiceStates
 
@@ -142,8 +143,10 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 				if voiceLine[1] == "help" {
 					s.ChannelMessageSend(m.ChannelID, helpCommand)
+					return
 				} else if voiceLine[1] == "info" {
 					s.ChannelMessageSend(m.ChannelID, infoCommand)
+					return
 				} else {
 					fileName = payload[voiceLine[1]].FileName
 					if fileName == "" {
@@ -216,6 +219,33 @@ func guildCreate(s *discordgo.Session, event *discordgo.GuildCreate) {
 			_, _ = s.ChannelMessageSend(channel.ID, "Emobot is ready! Type !emo while in a voice channel to play a sound.")
 			return
 		}
+	}
+}
+
+func onKTVJoin(s *discordgo.Session, event *discordgo.VoiceStateUpdate) {
+	//KTV ID = 963324557995962398
+	// My ID = 300626364418097162
+
+	fileName = "./dca/padida.dca"
+	currentTime := time.Now()
+
+	g, err := s.State.Guild(event.GuildID)
+	if err != nil {
+		return
+	}
+
+	if event.VoiceState.UserID == "300626364418097162" && event.BeforeUpdate == nil {
+
+		fmt.Printf("KTV Joined : %s at %s \n", g.Name, currentTime.Format("2006.01.02 15:04:05"))
+
+		if isPlaying == false {
+			isPlaying = true
+			err := playSound(s, event.GuildID, event.VoiceState.ChannelID)
+			if err != nil {
+				fmt.Print(err)
+			}
+		}
+		isPlaying = false
 	}
 }
 
