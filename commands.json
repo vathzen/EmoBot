@@ -2,6 +2,15 @@
     "emo": {
         "filename": "./dca/emodmg.dca"
     },
+    "paithiam": {
+        "filename": "./dca/paithiam.dca"
+    },
+    "aadave": {
+        "filename": "./dca/aadave.dca"
+    },
+    "padida": {
+        "filename": "./dca/padida.dca"
+    },
     "theri": {
         "fileName": "./dca/theri.dca"
     },

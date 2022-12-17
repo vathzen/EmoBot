@@ -48,7 +48,10 @@ ktv: ktv ktv ketta ktv
 mairu: bad wordshh
 nallave: ningallem nallave iruka matinga da T_T
 noob: Rogue's killer line
-worst: Worst and end the game xD 
+worst: Worst and end the game xD
+padida: Dei Parama
+paithiam: Unaku ena pa paithiam
+aadave: Aadave Therla
 
 !d2 commands
 ------------
@@ -234,7 +237,7 @@ func onKTVJoin(s *discordgo.Session, event *discordgo.VoiceStateUpdate) {
 		return
 	}
 
-	if event.VoiceState.UserID == "300626364418097162" && event.BeforeUpdate == nil {
+	if event.VoiceState.UserID == "963324557995962398" && event.BeforeUpdate == nil {
 
 		fmt.Printf("KTV Joined : %s at %s \n", g.Name, currentTime.Format("2006.01.02 15:04:05"))
 
