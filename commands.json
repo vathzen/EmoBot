@@ -11,6 +11,9 @@
     "padida": {
         "filename": "./dca/padida.dca"
     },
+    "soos": {
+        "filename": "./dca/soos.dca"
+    },
     "theri": {
         "fileName": "./dca/theri.dca"
     },
