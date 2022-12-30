@@ -36,3 +36,20 @@ jobs:
         REMOTE_HOST: vathzen.in
         REMOTE_USER: ubuntu
         TARGET: /home/ubuntu/go/EmoBot
+  
+  run:
+    name: Run the Bot
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Restart the bot
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: vathzen.in
+        username: ubuntu
+        key: ${{ secrets.EC2_PRIV_KEY }}
+        script: |
+          pgrep emobot | xargs kill
+          cd /home/ubuntu/go/EmoBot
+          nohup ./emobot $EMO_TOKEN&
+      
