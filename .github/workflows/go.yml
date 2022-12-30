@@ -51,5 +51,5 @@ jobs:
         script: |
           pgrep emobot | xargs kill
           cd /home/ubuntu/go/EmoBot
-          nohup ./emobot&
+          nohup ./emobot > nohup.out 2> nohup.err < /dev/null &
       
