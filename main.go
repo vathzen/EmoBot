@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/binary"
 	"encoding/json"
-	"flag"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -15,11 +14,6 @@ import (
 
 	"github.com/bwmarrin/discordgo"
 )
-
-func init() {
-	flag.StringVar(&token, "t", "", "Bot Token")
-	flag.Parse()
-}
 
 var token string
 var fileName string
@@ -67,10 +61,7 @@ For any issues and recommendations please contact my author at https://vathzen.i
 
 func main() {
 
-	if token == "" {
-		fmt.Println("Pass Token as Param")
-		return
-	}
+	token = os.Getenv("EMO_TOKEN")
 
 	// Create a new Discord session using the provided bot token.
 	dg, err := discordgo.New("Bot " + token)
