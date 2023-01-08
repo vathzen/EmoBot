@@ -21,39 +21,13 @@ var isPlaying bool = false
 
 type CommandData struct {
 	FileName string
+	Message string
+	Type string
 }
 
-const helpCommand = `
-!emo commands
--------------
-emo : eMoTiOnAL dAmAgE
-theri : Yaara Vena Iruklam Sir
-aiyo : AIYAYO
-iladi: Ana Na Apdi Iladi
-wtf: KTV WTF
-davara: Davara Da Dei
-daedalus: Buy Daedalus
-helpme: HELP ME
-jr: Jayarahul lol
-aadatha: Capsy lol
-baski: Thodu lmao
-damage: thats a looot of damage
-ktv: ktv ktv ketta ktv
-mairu: bad wordshh
-nallave: ningallem nallave iruka matinga da T_T
-noob: Rogue's killer line
-worst: Worst and end the game xD
-padida: Dei Parama
-paithiam: Unaku ena pa paithiam
-aadave: Aadave Therla
+var payload map[string]CommandData
 
-!d2 commands
-------------
-ratata: You're dead!
-die: If I go in I might die x3
-bock: Bock Bock Bock!
-sad: I admit nothing..
-help: This`
+var helpCommand string
 
 const infoCommand = `
 I'm the intellectual brainchild of  Frooster. My code can be found at https://github.com/vathzen/EmoBot.
@@ -69,6 +43,18 @@ func main() {
 		fmt.Println("Error creating Discord session: ", err)
 		return
 	}
+
+	fileContent, err := ioutil.ReadFile("./commands.json")
+	if err != nil {
+		return
+	}
+	err = json.Unmarshal(fileContent, &payload)
+	if err != nil {
+		return
+	}
+
+	updateHelpCommand()
+
 	dg.AddHandler(ready)
 	dg.AddHandler(messageCreate)
 	dg.AddHandler(guildCreate)
@@ -94,17 +80,6 @@ func ready(s *discordgo.Session, event *discordgo.Ready) {
 }
 
 func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
-
-	//Get json data for the commands
-	fileContent, err := ioutil.ReadFile("./commands.json")
-	if err != nil {
-		return
-	}
-	var payload map[string]CommandData
-	err = json.Unmarshal(fileContent, &payload)
-	if err != nil {
-		return
-	}
 
 	if m.Author.ID == s.State.User.ID {
 		return
@@ -219,8 +194,8 @@ func guildCreate(s *discordgo.Session, event *discordgo.GuildCreate) {
 func onKTVJoin(s *discordgo.Session, event *discordgo.VoiceStateUpdate) {
 	//KTV ID = 963324557995962398
 	// My ID = 300626364418097162
-
-	fileName = "./dca/padida.dca"
+	
+	fileName = payload["padida"].FileName
 	currentTime := time.Now()
 
 	g, err := s.State.Guild(event.GuildID)
@@ -324,4 +299,29 @@ func playSound(s *discordgo.Session, guildID, channelID string) (err error) {
 	vc.Disconnect()
 
 	return nil
+}
+
+func updateHelpCommand() {
+	var emoCommands = `
+!emo commands
+-------------
+
+info: Learn more about the bot
+`
+
+	var d2Commands = `
+!d2 commands
+-------------
+
+`
+	for key, element := range payload {
+		if(element.Type == "emo") {
+			emoCommands += key + ": " + element.Message + "\n"
+		} else if(element.Type == "d2") {
+			d2Commands += key + ": " + element.Message + "\n"
+		}
+        
+    }
+
+	helpCommand = emoCommands + d2Commands
 }
