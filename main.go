@@ -101,42 +101,43 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 			return
 		}
 
-		// Look for the message sender in that guild's current voice states.
-		for _, vs := range g.VoiceStates {
-			if vs.UserID == m.Author.ID {
-				voiceLine := strings.Split(m.Content, " ")
+		voiceLine := strings.Split(m.Content, " ")
 
-				if len(voiceLine) <= 1 {
-					return
-				}
+		if voiceLine[1] == "help" {
+			s.ChannelMessageSend(m.ChannelID, helpCommand)
+			return
+		} else if voiceLine[1] == "info" {
+			s.ChannelMessageSend(m.ChannelID, infoCommand)
+			return
+		} else {
+			// Look for the message sender in that guild's current voice states.
+			for _, vs := range g.VoiceStates {
+				if vs.UserID == m.Author.ID {
 
-				if voiceLine[1] == "help" {
-					s.ChannelMessageSend(m.ChannelID, helpCommand)
-					return
-				} else if voiceLine[1] == "info" {
-					s.ChannelMessageSend(m.ChannelID, infoCommand)
-					return
-				} else {
+					if len(voiceLine) <= 1 {
+						return
+					}
+
 					fileName = payload[voiceLine[1]].FileName
 					if fileName == "" {
 						fmt.Printf("%s %s: %s -> %s Not Found\n", currentTime.Format("2006.01.02 15:04:05"), g.Name, m.Author, voiceLine[1])
 						s.MessageReactionAdd(c.ID, m.ID, "\U00002639")
 						return
 					}
-				}
 
-				if isPlaying == false {
-					isPlaying = true
-					fmt.Printf("%s %s: %s -> %s\n", currentTime.Format("2006.01.02 15:04:05"), g.Name, m.Author, voiceLine[1])
-					s.MessageReactionAdd(c.ID, m.ID, "\U0001F602")
-					err = playSound(s, g.ID, vs.ChannelID)
-				}
-				isPlaying = false
+					if isPlaying == false {
+						isPlaying = true
+						fmt.Printf("%s %s: %s -> %s\n", currentTime.Format("2006.01.02 15:04:05"), g.Name, m.Author, voiceLine[1])
+						s.MessageReactionAdd(c.ID, m.ID, "\U0001F602")
+						err = playSound(s, g.ID, vs.ChannelID)
+					}
+					isPlaying = false
 
-				if err != nil {
-					fmt.Println("Error Playing sound:", err)
+					if err != nil {
+						fmt.Println("Error Playing sound:", err)
+					}
+					return
 				}
-				return
 			}
 		}
 	}
@@ -305,14 +306,12 @@ func updateHelpCommand() {
 	var emoCommands = `
 !emo commands
 -------------
-
 info: Learn more about the bot
 `
 
 	var d2Commands = `
 !d2 commands
 -------------
-
 `
 	for key, element := range payload {
 		if(element.Type == "emo") {
