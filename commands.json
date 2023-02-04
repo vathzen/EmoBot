@@ -5,6 +5,18 @@
     "paithiam": {
         "filename": "./dca/paithiam.dca"
     },
+    "build": {
+        "filename": "./dca/build.dca"
+    },
+    "moodra": {
+        "filename": "./dca/moodra.dca"
+    },
+    "sethen": {
+        "filename": "./dca/sethen.dca"
+    },
+    "vaseey": {
+        "filename": "./dca/vaseey.dca"
+    },
     "aadave": {
         "filename": "./dca/aadave.dca"
     },
