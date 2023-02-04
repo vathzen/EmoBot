@@ -195,6 +195,7 @@ func guildCreate(s *discordgo.Session, event *discordgo.GuildCreate) {
 func onKTVJoin(s *discordgo.Session, event *discordgo.VoiceStateUpdate) {
 	//KTV ID = 963324557995962398
 	// My ID = 300626364418097162
+	//Vas ID = 214451937322467330
 	
 	fileName = payload["padida"].FileName
 	currentTime := time.Now()
@@ -204,9 +205,10 @@ func onKTVJoin(s *discordgo.Session, event *discordgo.VoiceStateUpdate) {
 		return
 	}
 
-	if event.VoiceState.UserID == "963324557995962398" && event.BeforeUpdate == nil {
+	if event.VoiceState.UserID == "214451937322467330" && event.BeforeUpdate == nil {
 
-		fmt.Printf("KTV Joined : %s at %s \n", g.Name, currentTime.Format("2006.01.02 15:04:05"))
+		fmt.Printf("Vaseey Joined : %s at %s \n", g.Name, currentTime.Format("2006.01.02 15:04:05"))
+		fileName = payload["vaseey"].FileName
 
 		if isPlaying == false {
 			isPlaying = true
@@ -217,6 +219,21 @@ func onKTVJoin(s *discordgo.Session, event *discordgo.VoiceStateUpdate) {
 		}
 		isPlaying = false
 	}
+
+	// if event.VoiceState.UserID == "963324557995962398" && event.BeforeUpdate == nil {
+
+	// 	fmt.Printf("KTV Joined : %s at %s \n", g.Name, currentTime.Format("2006.01.02 15:04:05"))
+	// 	fileName = payload["padida"].FileName
+
+	// 	if isPlaying == false {
+	// 		isPlaying = true
+	// 		err := playSound(s, event.GuildID, event.VoiceState.ChannelID)
+	// 		if err != nil {
+	// 			fmt.Print(err)
+	// 		}
+	// 	}
+	// 	isPlaying = false
+	// }
 }
 
 // loadSound attempts to load an encoded sound file from disk.
