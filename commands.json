@@ -6,20 +6,28 @@
     },
     "paithiam": {
         "filename": "./dca/paithiam.dca",
-        "message": "Yaara Vena Iruklam Sir",
+        "message": "Unaku ena pa paithiam",
         "type": "emo"
     },
     "build": {
-        "filename": "./dca/build.dca"
+        "filename": "./dca/build.dca",
+        "message": "Dhanda Build",
+        "type": "emo"
     },
     "moodra": {
-        "filename": "./dca/moodra.dca"
+        "filename": "./dca/moodra.dca",
+        "message": "Dei otha sootha moodra",
+        "type": "emo"
     },
     "sethen": {
-        "filename": "./dca/sethen.dca"
+        "filename": "./dca/sethen.dca",
+        "message": "Capsy Death Message",
+        "type": "emo"
     },
     "vaseey": {
-        "filename": "./dca/vaseey.dca"
+        "filename": "./dca/vaseey.dca",
+        "message": "Vaseey Meheheh",
+        "type": "emo"
     },
     "aadave": {
         "filename": "./dca/aadave.dca",
