@@ -1,9 +1,13 @@
 {
     "emo": {
-        "filename": "./dca/emodmg.dca"
+        "filename": "./dca/emodmg.dca",
+        "message": "eMoTiOnAL dAmAgE",
+        "type": "emo"
     },
     "paithiam": {
-        "filename": "./dca/paithiam.dca"
+        "filename": "./dca/paithiam.dca",
+        "message": "Yaara Vena Iruklam Sir",
+        "type": "emo"
     },
     "build": {
         "filename": "./dca/build.dca"
@@ -18,78 +22,128 @@
         "filename": "./dca/vaseey.dca"
     },
     "aadave": {
-        "filename": "./dca/aadave.dca"
+        "filename": "./dca/aadave.dca",
+        "message": "Aadave Therla",
+        "type": "emo"
     },
     "padida": {
-        "filename": "./dca/padida.dca"
+        "filename": "./dca/padida.dca",
+        "message": "Dei Parama",
+        "type": "emo"
     },
     "soos": {
-        "filename": "./dca/soos.dca"
+        "filename": "./dca/soos.dca",
+        "message": "I cannot AIM",
+        "type": "emo"
     },
     "theri": {
-        "fileName": "./dca/theri.dca"
+        "fileName": "./dca/theri.dca",
+        "message": "Yaara Vena Iruklam Sir",
+        "type": "emo"
     },
     "aiyo": {
-        "fileName": "./dca/aiyayo.dca"
+        "fileName": "./dca/aiyayo.dca",
+        "message": "AIYAYO",
+        "type": "emo"
     },
     "iladi": {
-        "fileName": "./dca/siruthai.dca"
+        "fileName": "./dca/siruthai.dca",
+        "message": "Ana Na Apdi Iladi",
+        "type": "emo"
     },
     "wtf": {
-        "fileName": "./dca/wtf.dca"
+        "fileName": "./dca/wtf.dca",
+        "message": "KTV WTF",
+        "type": "emo"
     },
     "davara": {
-        "fileName": "./dca/davara.dca"
+        "fileName": "./dca/davara.dca",
+        "message": "Davara Da Dei",
+        "type": "emo"
     },
     "daedalus": {
-        "fileName": "./dca/daedalus3.dca"
+        "fileName": "./dca/daedalus3.dca",
+        "message": "Buy Daedalus",
+        "type": "emo"
     },
     "helpme": {
-        "fileName": "./dca/helpme.dca"
+        "fileName": "./dca/helpme.dca",
+        "message": "HELP ME",
+        "type": "emo"
     },
     "jr": {
-        "fileName": "./dca/jrm.dca"
+        "fileName": "./dca/jrm.dca",
+        "message": "Jayarahul lol",
+        "type": "emo"
     },
     "aadatha": {
-        "fileName": "./dca/capsy.dca"
+        "fileName": "./dca/capsy.dca",
+        "message": "Capsy lol",
+        "type": "emo"
     },
     "varala": {
-        "fileName": "./dca/vak2.dca"
+        "fileName": "./dca/vak2.dca",
+        "message": "Vak Varala da",
+        "type": "emo"
     },
     "yes": {
-        "fileName": "./dca/vichu.dca"
+        "fileName": "./dca/vichu.dca",
+        "message": "Yes, Yes, Yes",
+        "type": "emo"
     },
     "baski": {
-        "fileName": "./dca/baski-thodu.dca"
+        "fileName": "./dca/baski-thodu.dca",
+        "message": "Thodu lmao",
+        "type": "emo"
     },
     "damage": {
-        "fileName": "./dca/damage.dca"
+        "fileName": "./dca/damage.dca",
+        "message": "thats a looot of damage",
+        "type": "emo"
     },
     "ktv": {
-        "fileName": "./dca/ktv2.dca"
+        "fileName": "./dca/ktv2.dca",
+        "message": "ktv ktv ketta ktv",
+        "type": "emo"
     },
     "mairu": {
-        "fileName": "./dca/mairu.dca"
+        "fileName": "./dca/mairu.dca",
+        "message": "bad wordshh",
+        "type": "emo"
     },
     "nallave": {
-        "fileName": "./dca/nallave.dca"
+        "fileName": "./dca/nallave.dca",
+        "message": "ningallem nallave iruka matinga da T_T",
+        "type": "emo"
     },
     "noob": {
-        "fileName": "./dca/noob.dca"
+        "fileName": "./dca/noob.dca",
+        "message": "Rogue's killer line",
+        "type": "emo"
     },
     "worst": {
-        "fileName": "./dca/worst.dca"
+        "fileName": "./dca/worst.dca",
+        "message": "Worst and end the game xD",
+        "type": "emo"
     },
     "ratata": {
-        "fileName": "./dca/ratata.dca"
+        "fileName": "./dca/ratata.dca",
+        "message": "You're dead!",
+        "type": "d2"
     },
     "die": {
-        "fileName": "./dca/imightdie.dca"
+        "fileName": "./dca/imightdie.dca",
+        "message": "If I go in I might die x3",
+        "type": "d2"
     },
     "sad": {
-        "fileName": "./dca/sad.dca"
+        "fileName": "./dca/sad.dca",
+        "message": "I admit nothing..",
+        "type": "d2"
     },
     "bock": {
-        "fileName": "./dca/bock.dca"
+        "fileName": "./dca/bock.dca",
+        "message": "Bock Bock Bock!",
+        "type": "d2"
     }
 }
