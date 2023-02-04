@@ -9,19 +9,9 @@
         "message": "Unaku ena pa paithiam",
         "type": "emo"
     },
-    "build": {
-        "filename": "./dca/build.dca",
-        "message": "Dhanda Build",
-        "type": "emo"
-    },
-    "moodra": {
-        "filename": "./dca/moodra.dca",
-        "message": "Dei otha sootha moodra",
-        "type": "emo"
-    },
-    "sethen": {
-        "filename": "./dca/sethen.dca",
-        "message": "Capsy Death Message",
+    "varen": {
+        "filename": "./dca/varen.dca",
+        "message": "Varen Perima",
         "type": "emo"
     },
     "vaseey": {
