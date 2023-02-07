@@ -4,6 +4,11 @@
         "message": "eMoTiOnAL dAmAgE",
         "type": "emo"
     },
+    "phenyl": {
+        "filename": "./dca/phenyl.dca",
+        "message": "Vaai Kazhuving",
+        "type": "emo"
+    },
     "paithiam": {
         "filename": "./dca/paithiam.dca",
         "message": "Unaku ena pa paithiam",
