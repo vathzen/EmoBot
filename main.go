@@ -21,8 +21,8 @@ var isPlaying bool = false
 
 type CommandData struct {
 	FileName string
-	Message string
-	Type string
+	Message  string
+	Type     string
 }
 
 var payload map[string]CommandData
@@ -33,6 +33,18 @@ const infoCommand = `
 I'm the intellectual brainchild of  Frooster. My code can be found at https://github.com/vathzen/EmoBot.
 For any issues and recommendations please contact my author at https://vathzen.in/discord; though he will probably say Vaaila Vechuko`
 
+func getDataFromJson() {
+	payload = nil
+	fileContent, err := ioutil.ReadFile("./commands.json")
+	if err != nil {
+		return
+	}
+	err = json.Unmarshal(fileContent, &payload)
+	if err != nil {
+		return
+	}
+}
+
 func main() {
 
 	token = os.Getenv("EMO_TOKEN")
@@ -41,15 +53,6 @@ func main() {
 	dg, err := discordgo.New("Bot " + token)
 	if err != nil {
 		fmt.Println("Error creating Discord session: ", err)
-		return
-	}
-
-	fileContent, err := ioutil.ReadFile("./commands.json")
-	if err != nil {
-		return
-	}
-	err = json.Unmarshal(fileContent, &payload)
-	if err != nil {
 		return
 	}
 
@@ -105,9 +108,11 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 		if voiceLine[1] == "help" {
 			s.ChannelMessageSend(m.ChannelID, helpCommand)
+			s.MessageReactionAdd(c.ID, m.ID, "\U0001F44D")
 			return
 		} else if voiceLine[1] == "info" {
 			s.ChannelMessageSend(m.ChannelID, infoCommand)
+			s.MessageReactionAdd(c.ID, m.ID, "\U0001F44D")
 			return
 		} else {
 			// Look for the message sender in that guild's current voice states.
@@ -117,6 +122,8 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 					if len(voiceLine) <= 1 {
 						return
 					}
+
+					getDataFromJson()
 
 					fileName = payload[voiceLine[1]].FileName
 					if fileName == "" {
@@ -159,6 +166,8 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 					return
 				}
 
+				getDataFromJson()
+
 				fileName = payload[voiceLine[1]].FileName
 
 				if isPlaying == false {
@@ -196,7 +205,9 @@ func onKTVJoin(s *discordgo.Session, event *discordgo.VoiceStateUpdate) {
 	//KTV ID = 963324557995962398
 	// My ID = 300626364418097162
 	//Vas ID = 214451937322467330
-	
+
+	getDataFromJson()
+
 	fileName = payload["padida"].FileName
 	currentTime := time.Now()
 
@@ -330,14 +341,17 @@ info: Learn more about the bot
 !d2 commands
 -------------
 `
+
+	getDataFromJson()
+
 	for key, element := range payload {
-		if(element.Type == "emo") {
+		if element.Type == "emo" {
 			emoCommands += key + ": " + element.Message + "\n"
-		} else if(element.Type == "d2") {
+		} else if element.Type == "d2" {
 			d2Commands += key + ": " + element.Message + "\n"
 		}
-        
-    }
+
+	}
 
 	helpCommand = emoCommands + d2Commands
 }
