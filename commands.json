@@ -85,7 +85,7 @@
         "type": "emo"
     },
     "laugh": {
-        "fileName": "./dca/worst.dca",
+        "fileName": "./dca/laugh.dca",
         "message": "Fake Laugh",
         "type": "emo"
     }
