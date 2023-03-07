@@ -50,7 +50,5 @@ jobs:
         username: ubuntu
         key: ${{ secrets.EC2_PRIV_KEY }}
         script: |
-          pgrep emobot | xargs kill
-          cd /home/ubuntu/go/EmoBot
-          nohup ./emobot > nohup.out 2> nohup.err < /dev/null &
+          pm2 restart emobot
       
