@@ -336,21 +336,11 @@ func updateHelpCommand() {
 info: Learn more about the bot
 `
 
-	var d2Commands = `
-!d2 commands
--------------
-`
-
 	getDataFromJson()
 
 	for key, element := range payload {
-		if element.Type == "emo" {
-			emoCommands += key + ": " + element.Message + "\n"
-		} else if element.Type == "d2" {
-			d2Commands += key + ": " + element.Message + "\n"
-		}
-
+		emoCommands += key + ": " + element.Message + "\n"
 	}
 
-	helpCommand = emoCommands + d2Commands
+	helpCommand = emoCommands 
 }
