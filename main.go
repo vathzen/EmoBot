@@ -56,8 +56,6 @@ func main() {
 		return
 	}
 
-	updateHelpCommand()
-
 	dg.AddHandler(ready)
 	dg.AddHandler(messageCreate)
 	dg.AddHandler(guildCreate)
@@ -78,6 +76,8 @@ func main() {
 }
 
 func ready(s *discordgo.Session, event *discordgo.Ready) {
+	getDataFromJson()
+	updateHelpCommand()
 	s.UpdateGameStatus(0, "!emo")
 }
 
@@ -122,8 +122,6 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 						return
 					}
 
-					getDataFromJson()
-
 					fileName = payload[voiceLine[1]].FileName
 					if fileName == "" {
 						fmt.Printf("%s %s: %s -> %s Not Found\n", currentTime.Format("2006.01.02 15:04:05"), g.Name, m.Author, voiceLine[1])
@@ -165,8 +163,6 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 					return
 				}
 
-				getDataFromJson()
-
 				fileName = payload[voiceLine[1]].FileName
 
 				if isPlaying == false {
@@ -204,8 +200,6 @@ func onKTVJoin(s *discordgo.Session, event *discordgo.VoiceStateUpdate) {
 	//KTV ID = 963324557995962398
 	// My ID = 300626364418097162
 	//Vas ID = 214451937322467330
-
-	getDataFromJson()
 
 	fileName = payload["padida"].FileName
 	currentTime := time.Now()
@@ -335,8 +329,6 @@ func updateHelpCommand() {
 -------------
 info: Learn more about the bot
 `
-
-	getDataFromJson()
 
 	for key, element := range payload {
 		emoCommands += key + ": " + element.Message + "\n"
